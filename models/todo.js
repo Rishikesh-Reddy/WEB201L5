@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         order: [["id", "ASC"]],
       });
-      return await overDueTodayTodos
+      return overDueTodayTodos
         .map((todo) => todo.displayableString())
         .join("\n");
     }
@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         order: [["id", "ASC"]],
       });
-      return await dueTodayTodos
+      return dueTodayTodos
         .map((todo) => todo.displayableString())
         .join("\n");
     }
@@ -61,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         order: [["id", "ASC"]],
       });
-      return await dueLaterTodayTodos
+      return dueLaterTodayTodos
         .map((todo) => todo.displayableString())
         .join("\n");
     }
