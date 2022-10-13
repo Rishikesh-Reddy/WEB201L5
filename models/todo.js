@@ -15,17 +15,26 @@ module.exports = (sequelize, DataTypes) => {
       console.log("My Todo list \n");
 
       console.log("Overdue");
-      console.log(await Todo.overdue());
+      const overDueItems = await Todo.overdue();
+      console.log(
+        overdueitems.map((todo) => todo.displayableString()).join("\n")
+      )
       console.log("\n");
       console.log("Due Today");
-      console.log(await Todo.dueToday());
+      const dueTodayItems = await Todo.dueToday();
+      console.log(
+        dueTodayItems.map((todo) => todo.displayableString()).join("\n")
+      )
       console.log("\n");
       console.log("Due Later");
-      console.log(await Todo.dueLater());
+      const dueLaterItems = await Todo.dueLater();
+      console.log(
+        dueLaterItems.map((todo) => todo.displayableString()).join("\n")
+      )
     }
 
     static async overdue() {
-      const overDueTodayTodos = await Todo.findAll({
+      const overDueTodos = await Todo.findAll({
         where: {
           dueDate: {
             [Op.lt]: new Date().toLocaleDateString("en-CA"),
@@ -33,9 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         order: [["id", "ASC"]],
       });
-      return overDueTodayTodos
-        .map((todo) => todo.displayableString())
-        .join("\n");
+      return overDueTodos
     }
 
     static async dueToday() {
@@ -48,8 +55,6 @@ module.exports = (sequelize, DataTypes) => {
         order: [["id", "ASC"]],
       });
       return dueTodayTodos
-        .map((todo) => todo.displayableString())
-        .join("\n");
     }
 
     static async dueLater() {
@@ -62,8 +67,6 @@ module.exports = (sequelize, DataTypes) => {
         order: [["id", "ASC"]],
       });
       return dueLaterTodayTodos
-        .map((todo) => todo.displayableString())
-        .join("\n");
     }
 
     static async markAsComplete(id) {
